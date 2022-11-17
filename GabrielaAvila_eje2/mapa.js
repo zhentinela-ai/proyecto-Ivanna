@@ -4,19 +4,29 @@ export class Mapa extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image("background", "pictures/fondodetroit.jpg");
-    this.load.image("aves", "pictures/aves.jpg");
+    this.load.image("background", "map_pictures/detroit-lakes.png");
+    this.load.image("lake", "map_pictures/lake1.png");
+    this.load.image("urban", "map_pictures/urban1.png");
   }
 
   create() {
-    this.add.image(400, 250, "background");
-    this.gameoverImage = this.add.image(0, 0, "aves");
-    this.gameoverImage.visible = false;
+    this.background = this.add.tileSprite(800, 800, 1600, 1600, "background");
+    this.background.setTileScale(0.245, 0.245);
 
-    this.caer = this.physics.add.image(400, 250, "aves").setInmovable();
-    this.caer.body.allowGravity = false;
+    // this.lake = this.add.sprite(310, 432, "lake");
+    this.lake = this.add.sprite(300, 300, "lake");
+    this.lake.setScale(1, 1);
+    this.lake.transparent = true;
 
-    this.cursors = this.input.keyboard.createCursorKeys();
+    // this.urban = this.add.sprite(295, 316, "urban");
+    this.urban = this.add.sprite(300, 300, "urban");
+
+    // this.gameoverImage.visible = false;
+
+    // this.caer = this.physics.add.image(400, 250, "aves").setInmovable();
+    // this.caer.body.allowGravity = false;
+
+    // this.cursors = this.input.keyboard.createCursorKeys();
 
     // this.caer.setVelocity(100, 90);
 
@@ -26,16 +36,15 @@ export class Mapa extends Phaser.Scene {
   }
 
   update() {
-    if (this.cursors.left.isDown) {
-      this.caer.setVelocityX(-160);
-    } else if (this.cursors.right.isDown) {
-      this.caer.setVelocityX(160);
-    } else {
-      this.caer.setVelocityX(0);
-    }
-
-    if (this.cursors.up.isDown && this.caer.body.touching.down) {
-      this.caer.setVelocityY(-330);
-    }
+    // if (this.cursors.left.isDown) {
+    //   this.caer.setVelocityX(-160);
+    // } else if (this.cursors.right.isDown) {
+    //   this.caer.setVelocityX(160);
+    // } else {
+    //   this.caer.setVelocityX(0);
+    // }
+    // if (this.cursors.up.isDown && this.caer.body.touching.down) {
+    //   this.caer.setVelocityY(-330);
+    // }
   }
 }
