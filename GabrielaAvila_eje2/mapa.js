@@ -19,123 +19,40 @@ export class Mapa extends Phaser.Scene {
     this.background = this.add.tileSprite(800, 800, 1600, 1600, "background");
     this.background.setTileScale(0.245, 0.245);
 
-    const createSection = (x, y, key, key_hover, scene) => {
-      const section = this.add.image(x, y, key).setInteractive();
-      section.on("pointerover", () => {
-        section.setTexture(key_hover);
+    function sleep(ms) {
+      return new Promise((resolve) => setTimeout(resolve, ms));
+    }
+
+    const createSection = (x, y, key, key_hover) => {
+
+      let section = this.add.image(x, y, key).setInteractive();
+
+      let sectionHover = this.add.image(x, y, key_hover).setInteractive();
+      sectionHover.setAlpha(0);
+
+      section.on("pointerover", async () => {
+        for (let i = 0; i <= 100; i++) {
+          sectionHover.setAlpha(i / 100);
+          await sleep(3);
+          sectionHover.scaleX += 0.00035;
+          sectionHover.scaleY += 0.00035;
+        }
       });
-      section.on("pointerout", () => {
-        section.setTexture(key);
-      });
-      section.on("pointerdown", () => {
-        this.scene.start(scene);
+
+      sectionHover.on("pointerout", async () => {
+        for (let i = 0; i <= 100; i++) {
+          sectionHover.setAlpha(1 - i / 100);
+          await sleep(3);
+          sectionHover.scaleX -= 0.00035;
+          sectionHover.scaleY -= 0.00035;
+        }
       });
     };
 
-    createSection(100, 100, "lake", "lake_hover", "lake");
-    
-    this.urban = this.add.sprite(222, 208, "urban").setInteractive();
-    
-    this.urbanHover = this.add.sprite(222, 208, "urban_hover").setInteractive();
-    this.urbanHover.setAlpha(0);
-
-    this.urban.on("pointerover", async (event) => {
-      for (let i = 0; i <= 100; i++) {
-        this.urbanHover.setAlpha(i / 100);
-        await sleep(3);
-        this.urbanHover.scaleX += 0.00035;
-        this.urbanHover.scaleY += 0.00035;
-      }
-    });
-    this.urbanHover.on("pointerout", async (event) => {
-      for (let i = 0; i <= 100; i++) {
-        this.urbanHover.setAlpha(1 - i / 100);
-        await sleep(3);
-        this.urbanHover.scaleX -= 0.00035;
-        this.urbanHover.scaleY -= 0.00035;
-      }
-    });
-
-    // this.lake = this.add.sprite(317, 432, "lake").setInteractive();
-
-    // this.lakeHover = this.add.sprite(317, 432, "lake_hover").setInteractive();
-    // this.lakeHover.setAlpha(0);
-
-    // function sleep(ms) {
-    //   return new Promise((resolve) => setTimeout(resolve, ms));
-    // }
-
-    // this.lake.on("pointerover", async (event) => {
-    //   for (let i = 0; i <= 100; i++) {
-    //     this.lakeHover.setAlpha(i / 100);
-    //     await sleep(3);
-    //     this.lakeHover.scaleX += 0.0005;
-    //     this.lakeHover.scaleY += 0.0005;
-    //   }
-    // });
-    // this.lakeHover.on("pointerout", async (event) => {
-    //   for (let i = 0; i <= 100; i++) {
-    //     this.lakeHover.setAlpha(1 - i / 100);
-    //     await sleep(3);
-    //     this.lakeHover.scaleX -= 0.0005;
-    //     this.lakeHover.scaleY -= 0.0005;
-    //   }
-    // });
-
-    this.natural = this.add.sprite(456, 130, "natural").setInteractive();
-
-    this.naturalHover = this.add
-      .sprite(456, 130, "natural_hover")
-      .setInteractive();
-    this.naturalHover.setAlpha(0);
-
-    this.naturalHover = this.add
-      .sprite(456, 130, "natural_hover")
-      .setInteractive();
-    this.naturalHover.setAlpha(0);
-
-    this.natural.on("pointerover", async (event) => {
-      for (let i = 0; i <= 100; i++) {
-        this.naturalHover.setAlpha(i / 100);
-        await sleep(3);
-        this.naturalHover.scaleX += 0.0005;
-        this.naturalHover.scaleY += 0.0005;
-      }
-    });
-
-    this.naturalHover.on("pointerout", async (event) => {
-      for (let i = 0; i <= 100; i++) {
-        this.naturalHover.setAlpha(1 - i / 100);
-        await sleep(3);
-        this.naturalHover.scaleX -= 0.0005;
-        this.naturalHover.scaleY -= 0.0005;
-      }
-    });
-
-    this.aves = this.add.sprite(215, 490, "aves").setInteractive();
-
-    this.avesHover = this.add.sprite(215, 490, "aves_hover").setInteractive();
-    this.avesHover.setAlpha(0);
-
-    this.aves.on("pointerover", async (event) => {
-      for (let i = 0; i <= 100; i++) {
-        this.avesHover.setAlpha(i / 100);
-        await sleep(3);
-        this.avesHover.scaleX += 0.0005;
-        this.avesHover.scaleY += 0.0005;
-      }
-    });
-
-    this.avesHover.on("pointerout", async (event) => {
-      for (let i = 0; i <= 100; i++) {
-        this.avesHover.setAlpha(1 - i / 100);
-        await sleep(3);
-        this.avesHover.scaleX -= 0.0005;
-        this.avesHover.scaleY -= 0.0005;
-      }
-    });
-
-    // this.urban = this.add.sprite(300, 300, "urban");
+    createSection(222, 208, "urban", "urban_hover");  
+    createSection(317, 432, "lake", "lake_hover");
+    createSection(456, 130, "natural", "natural_hover");
+    createSection(215, 490, "aves", "aves_hover");
 
     // this.gameoverImage.visible = false;
 
