@@ -1,33 +1,35 @@
+import { sleep } from "../sleep.js";
+
 export class Mapa extends Phaser.Scene {
   constructor() {
     super({ key: "mapa" });
   }
 
   preload() {
-    this.load.image("background", "map_pictures/detroit-lakes.png");
-    this.load.image("lake", "map_pictures/lake.png");
-    this.load.image("lake_hover", "map_pictures/lake_hover.png");
-    this.load.image("urban", "map_pictures/urban.png");
-    this.load.image("urban_hover", "map_pictures/urban_hover.png");
-    this.load.image("natural", "map_pictures/natural.png");
-    this.load.image("natural_hover", "map_pictures/natural_hover.png");
-    this.load.image("aves", "map_pictures/aves.png");
-    this.load.image("aves_hover", "map_pictures/aves_hover.png");
+    this.load.path = "./map_pictures/";
+    this.load.image("background", "detroit-lakes.png");
+    this.load.image("lake", "lake.png");
+    this.load.image("lake_hover", "lake_hover.png");
+    this.load.image("urban", "urban.png");
+    this.load.image("urban_hover", "urban_hover.png");
+    this.load.image("natural", "natural.png");
+    this.load.image("natural_hover", "natural_hover.png");
+    this.load.image("aves", "aves.png");
+    this.load.image("aves_hover", "aves_hover.png");
   }
 
   create() {
-    this.background = this.add.tileSprite(800, 800, 1600, 1600, "background");
+    this.background = this.add
+      .tileSprite(800, 800, 1600, 1600, "background")
+      .setInteractive();
     this.background.setTileScale(0.245, 0.245);
 
-    function sleep(ms) {
-      return new Promise((resolve) => setTimeout(resolve, ms));
-    }
-
     const createSection = (x, y, key, key_hover) => {
-
       let section = this.add.image(x, y, key).setInteractive();
 
-      let sectionHover = this.add.image(x, y, key_hover).setInteractive();
+      let sectionHover = this.add.image(x, y, key_hover).setInteractive({
+        useHandCursor: true,
+      });
       sectionHover.setAlpha(0);
 
       section.on("pointerover", async () => {
@@ -47,12 +49,34 @@ export class Mapa extends Phaser.Scene {
           sectionHover.scaleY -= 0.00035;
         }
       });
+
+      this.background.on("pointerout", () => {
+        sectionHover.setAlpha(0);
+      });
+
+      if (key === "lake") {
+        sectionHover.on("pointerdown", () => {
+          this.showLake();
+        });
+      } else if (key === "urban") {
+        sectionHover.on("pointerdown", () => {
+          this.showUrban();
+        });
+      } else if (key === "natural") {
+        sectionHover.on("pointerdown", () => {
+          this.showNatural();
+        });
+      } else if (key === "aves") {
+        sectionHover.on("pointerdown", () => {
+          this.showAves();
+        });
+      }
     };
 
-    createSection(222, 208, "urban", "urban_hover");  
-    createSection(317, 432, "lake", "lake_hover");
+    createSection(222, 208, "urban", "urban_hover");
     createSection(456, 130, "natural", "natural_hover");
     createSection(215, 490, "aves", "aves_hover");
+    createSection(317, 432, "lake", "lake_hover");
 
     // this.gameoverImage.visible = false;
 
@@ -79,5 +103,21 @@ export class Mapa extends Phaser.Scene {
     // if (this.cursors.up.isDown && this.caer.body.touching.down) {
     //   this.caer.setVelocityY(-330);
     // }
+  }
+
+  showLake() {
+    this.scene.start("lake");
+  }
+
+  showUrban() {
+    this.scene.start("urban");
+  }
+
+  showNatural() {
+    this.scene.start("natural");
+  }
+
+  showAves() {
+    this.scene.start("aves");
   }
 }
