@@ -7,7 +7,7 @@ export class Urban extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image("compras", "./pictures/compras.jpg");
+    this.load.image("compras", "../../pictures/compras.jpg");
     this.backButton.preload();
   }
 

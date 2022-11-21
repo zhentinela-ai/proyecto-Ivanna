@@ -7,7 +7,7 @@ export class Natural extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image("bosques", "./pictures/bosques.jpg");
+    this.load.image("bosques", "../../pictures/bosques.jpg");
     this.backButton.preload();
   }
 

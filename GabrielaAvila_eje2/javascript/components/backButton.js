@@ -8,7 +8,7 @@ export class BackButton {
   preload() {
     this.relatedScene.load.spritesheet(
       "buttons",
-      "./map_pictures/back-buttons-tile.png",
+      "../../map_pictures/back-buttons-tile.png",
       { frameWidth: 50, frameHeight: 50 }
     );
   }

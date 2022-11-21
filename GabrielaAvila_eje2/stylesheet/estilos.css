@@ -59,7 +59,7 @@ nav {
   text-align: center;
   width: 142px;
   width: 10em;
-  background-image: url(pictures/boton1.png);
+  background-image: url(../pictures/boton1.png);
   padding: 5px 10px 6px 8px;
   float: left;
 }
@@ -71,7 +71,7 @@ nav {
 .botonMenu:hover {
   color: #00000000;
   text-shadow: 0.5px 0.5px #ffffff;
-  background-image: url(pictures/boton2.jpg);
+  background-image: url(../pictures/boton2.jpg);
   cursor: pointer;
 }
 h1 {

@@ -8,9 +8,9 @@ export class Lake extends Phaser.Scene {
 
   // cargar los recursos de la escena, como el componente de botón de regreso
   preload() {
-    this.load.image("vida_silvestre", "./pictures/vidasil.jpg");
+    this.load.image("vida_silvestre", "../../pictures/vidasil.jpg");
     this.backButton.preload();
-    this.load.image("familia", "./pictures/familia.jpg");
+    this.load.image("familia", "../../pictures/familia.jpg");
   }
 
   // actualizar la escena

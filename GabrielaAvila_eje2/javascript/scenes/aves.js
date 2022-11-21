@@ -7,7 +7,7 @@ export class Aves extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image("aves_fotos", "./pictures/aves.jpg");
+    this.load.image("aves_fotos", "../../pictures/aves.jpg");
     this.backButton.preload();
   }
 

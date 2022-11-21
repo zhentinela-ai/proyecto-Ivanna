@@ -6,13 +6,17 @@ export class Mapa extends Phaser.Scene {
   constructor() {
     // asignar una clave a la escena
     super({ key: "mapa" });
+    this.createVariables();
   }
 
   // precargar los recursos de la escena
   preload() {
     // asignar la carpeta de origen de los recursos
-    this.load.path = "./map_pictures/";
-    this.load.image("background", "detroit-lakes.png");
+    this.load.path = "../map_pictures/";
+    this.load.image(
+      "background",
+      window.innerWidth > 640 ? "detroit-lakes.png" : "detroit-lakes-mobile.jpg"
+    );
     this.load.image("lake", "lake.png");
     this.load.image("lake_hover", "lake_hover.png");
     this.load.image("urban", "urban.png");
@@ -23,13 +27,45 @@ export class Mapa extends Phaser.Scene {
     this.load.image("aves_hover", "aves_hover.png");
   }
 
+  // Crear las variables de la escena, para verlas en las diferentes resoluciones
+  createVariables() {
+    if (window.innerWidth > 640) {
+      this.x_y = 800;
+      this.w_h = 1600;
+      // la varible reScale es para escalar las imágenes en función de la resolución, en este caso la imagen es de 2448x2448 y se escala a 600x600
+      this.reScale = 0.245;
+      this.urbanX = 222;
+      this.urbanY = 208;
+      this.naturalX = 456;
+      this.naturalY = 130;
+      this.avesX = 215;
+      this.avesY = 490;
+      this.lakeX = 317;
+      this.lakeY = 432;
+    } else {
+      this.x_y = 800;
+      this.w_h = 1600;
+      // la varible reScale es para escalar las imágenes en función de la resolución, en este caso la imagen es de 612x612 y se escala a 300x300
+      this.reScale = 0.49;
+      this.urbanX = 111;
+      this.urbanY = 104;
+      this.naturalX = 228;
+      this.naturalY = 65;
+      this.avesX = 108;
+      this.avesY = 245;
+      this.lakeX = 159;
+      this.lakeY = 216;
+    }
+  }
+
   // crear la escena y sus objetos
   create() {
     // crear el fondo
+
     this.background = this.add
-      .tileSprite(800, 800, 1600, 1600, "background")
+      .tileSprite(this.x_y, this.x_y, this.w_h, this.w_h, "background")
       .setInteractive();
-    this.background.setTileScale(0.245, 0.245);
+    this.background.setTileScale(this.reScale, this.reScale);
 
     // función para crear las secciones del mapa
     const createSection = (x, y, key, key_hover) => {
@@ -87,10 +123,10 @@ export class Mapa extends Phaser.Scene {
     };
 
     // crear las secciones del mapa, con la función createSection
-    createSection(222, 208, "urban", "urban_hover");
-    createSection(456, 130, "natural", "natural_hover");
-    createSection(215, 490, "aves", "aves_hover");
-    createSection(317, 432, "lake", "lake_hover");
+    createSection(this.urbanX, this.urbanY, "urban", "urban_hover");
+    createSection(this.naturalX, this.naturalY, "natural", "natural_hover");
+    createSection(this.avesX, this.avesY, "aves", "aves_hover");
+    createSection(this.lakeX, this.lakeY, "lake", "lake_hover");
   }
 
   // actualizar las escenas dependiendo de la sección que se haya seleccionado

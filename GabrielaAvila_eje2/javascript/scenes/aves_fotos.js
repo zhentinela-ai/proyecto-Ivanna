@@ -7,7 +7,7 @@ export class AvesFotos extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image("aves_fotos", "./pictures/aves.jpg");
+    this.load.image("aves_fotos", "../../pictures/aves.jpg");
     this.backButton.preload();
   }
 
@@ -28,7 +28,7 @@ export class AvesFotos extends Phaser.Scene {
                 planifique su viaje de observación de aves al
                 Festival de las Aves anual.
                 `;
-    this.add.text(-25, 280, text, {
+    this.add.text(-25, 260, text, {
       fontFamily: "New Times Roman",
       fontSize: 25,
       color: "#ffffff",

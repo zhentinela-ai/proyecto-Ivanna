@@ -11,10 +11,14 @@ import { Compras } from "./scenes/compras.js";
 import { AvesFotos } from "./scenes/aves_fotos.js";
 
 // configuración de la escena
+let w,
+  h = 0;
+window.innerWidth > 640 ? ((h = 600), (w = 600)) : ((w = 300), (h = 300));
+
 const config = {
   type: Phaser.AUTO,
-  width: 600,
-  height: 600,
+  width: w,
+  height: h,
   scene: [
     Mapa,
     Lake,
