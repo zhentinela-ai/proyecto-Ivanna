@@ -15,7 +15,7 @@ export class Mapa extends Phaser.Scene {
     this.load.path = "../map_pictures/";
     this.load.image(
       "background",
-      window.innerWidth > 640 ? "detroit-lakes.png" : "detroit-lakes-mobile.jpg"
+      window.innerWidth > 640 ? "detroit-lakes.png" : "detroit-lakes.png"
     );
     this.load.image("lake", "lake.png");
     this.load.image("lake_hover", "lake_hover.png");
@@ -29,33 +29,18 @@ export class Mapa extends Phaser.Scene {
 
   // Crear las variables de la escena, para verlas en las diferentes resoluciones
   createVariables() {
-    if (window.innerWidth > 640) {
-      this.x_y = 800;
-      this.w_h = 1600;
-      // la varible reScale es para escalar las imágenes en función de la resolución, en este caso la imagen es de 2448x2448 y se escala a 600x600
-      this.reScale = 0.245;
-      this.urbanX = 222;
-      this.urbanY = 208;
-      this.naturalX = 456;
-      this.naturalY = 130;
-      this.avesX = 215;
-      this.avesY = 490;
-      this.lakeX = 317;
-      this.lakeY = 432;
-    } else {
-      this.x_y = 800;
-      this.w_h = 1600;
-      // la varible reScale es para escalar las imágenes en función de la resolución, en este caso la imagen es de 612x612 y se escala a 300x300
-      this.reScale = 0.49;
-      this.urbanX = 111;
-      this.urbanY = 104;
-      this.naturalX = 228;
-      this.naturalY = 65;
-      this.avesX = 108;
-      this.avesY = 245;
-      this.lakeX = 159;
-      this.lakeY = 216;
-    }
+    this.x_y = 800;
+    this.w_h = 1600;
+    // la varible reScale es para escalar las imágenes en función de la resolución, en este caso la imagen es de 2448x2448 y se escala a 600x600
+    this.reScale = 0.245;
+    this.urbanX = 222;
+    this.urbanY = 208;
+    this.naturalX = 456;
+    this.naturalY = 130;
+    this.avesX = 215;
+    this.avesY = 490;
+    this.lakeX = 317;
+    this.lakeY = 432;
   }
 
   // crear la escena y sus objetos
@@ -78,7 +63,7 @@ export class Mapa extends Phaser.Scene {
       });
       sectionHover.setAlpha(0);
 
-      // cuando el mouse pasa por encima de la sección, se muestra la sección con el color de fondo
+      // cuando el mouse pasa por encima de la sección, se muestra la sección con el color de fondo, gradualmente
       section.on("pointerover", async () => {
         for (let i = 0; i <= 100; i++) {
           sectionHover.setAlpha(i / 100);

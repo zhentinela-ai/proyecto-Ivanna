@@ -10,15 +10,26 @@ import { Aves } from "./scenes/aves.js";
 import { Compras } from "./scenes/compras.js";
 import { AvesFotos } from "./scenes/aves_fotos.js";
 
-// configuración de la escena
-let w,
-  h = 0;
-window.innerWidth > 640 ? ((h = 600), (w = 600)) : ((w = 300), (h = 300));
+// Crear una variable para escalizar el mapa, para que se vea bien en cualquier dispositivo
+let scale = NaN;
+// Se cambia la posición del titulo y el tamañop del mapa, dependiendo del dispositivo
+let title = document.getElementById("titulo");
+window.innerWidth > 640
+  ? (scale = 1)
+  : ((scale = window.innerWidth / 650),
+    (title.style.fontSize = "1.5rem"),
+    (title.style.margin = "auto 0"));
 
+window.addEventListener("resize", () => {
+  window.location.reload();
+});
+
+// configuración de la escena
 const config = {
   type: Phaser.AUTO,
-  width: w,
-  height: h,
+  width: 600,
+  height: 600,
+  zoom: scale,
   scene: [
     Mapa,
     Lake,
@@ -36,4 +47,4 @@ const config = {
 };
 
 // crear el Mapa
-new Phaser.Game(config);
+const map = new Phaser.Game(config);
